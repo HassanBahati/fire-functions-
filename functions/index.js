@@ -1,13 +1,21 @@
 const functions = require("firebase-functions");
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
-
+//http function
 exports.helloworld = functions.https.onRequest((req,res)=>{
     res.send("Hello from firebase function")
+})
+
+
+exports.api = functions.https.onRequest((req,res)=>{
+    switch(req.method){
+        case 'GET':
+            res.send("it was a get request ")
+        break;
+        case 'POST':
+            res.send("it was a get request ")
+        break;
+        case 'DELETE':
+        res.send("it was a get request ")
+    break;
+    }
 })
