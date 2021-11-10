@@ -48,7 +48,7 @@ exports.fruitsDeleted = functions.firestore.document('fruits/{documentId}').onCr
   console.log(snapshot.data() ,'deleted');
   return Promise.resolve()
   });
-
+ 
   //events on firestore collections event when document is created
 exports.fruitsUpdated = functions.firestore.document('fruits/{documentId}').onCreate((snapshot, context) =>{
   console.log('Bfore', snapshot.before.data())
@@ -56,3 +56,8 @@ exports.fruitsUpdated = functions.firestore.document('fruits/{documentId}').onCr
   return Promise.resolve()
   });
 
+//shduled functions
+exports.scheduledFunctions = functions.pubsub.schedule('*****').onRun(context => {
+  console.log('Ima runnning every minute')
+  return null;
+})
