@@ -37,3 +37,22 @@ exports.userDeleted = functions.auth().onDeleted()(user => {
     return Promise.resolve()
 })
 
+//events on firestore collections event when document is created
+exports.fruitsAdded = functions.firestore.document('fruits/{documentId}').onCreate((snapshot, context) =>{
+console.log(snapshot.data());
+return Promise.resolve()
+});
+
+//events on firestore collections event when document is created
+exports.fruitsDeleted = functions.firestore.document('fruits/{documentId}').onCreate((snapshot, context) =>{
+  console.log(snapshot.data() ,'deleted');
+  return Promise.resolve()
+  });
+
+  //events on firestore collections event when document is created
+exports.fruitsUpdated = functions.firestore.document('fruits/{documentId}').onCreate((snapshot, context) =>{
+  console.log('Bfore', snapshot.before.data())
+  console.log('After', snapshot.after.data());
+  return Promise.resolve()
+  });
+
