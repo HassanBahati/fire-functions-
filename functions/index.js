@@ -23,3 +23,17 @@ exports.api = functions.https.onRequest(async (req, res) => {
       res.send("it was a default request ");
   }
 });
+
+
+//events function
+exports.userAdded = functions.auth.user().onCreate(user => {
+    console.log(`${user.email} is created...`)
+    return Promise.resolve()
+})
+
+//on delete eventevents 
+exports.userDeleted = functions.auth().onDeleted()(user => {
+    console.log(`${user.email} is deleted...`)
+    return Promise.resolve()
+})
+
