@@ -24,40 +24,47 @@ exports.api = functions.https.onRequest(async (req, res) => {
   }
 });
 
-
 //events function
-exports.userAdded = functions.auth.user().onCreate(user => {
-    console.log(`${user.email} is created...`)
-    return Promise.resolve()
-})
+exports.userAdded = functions.auth.user().onCreate((user) => {
+  console.log(`${user.email} is created...`);
+  return Promise.resolve();
+});
 
-//on delete eventevents 
-exports.userDeleted = functions.auth().onDeleted()(user => {
-    console.log(`${user.email} is deleted...`)
-    return Promise.resolve()
-})
-
-//events on firestore collections event when document is created
-exports.fruitsAdded = functions.firestore.document('fruits/{documentId}').onCreate((snapshot, context) =>{
-console.log(snapshot.data());
-return Promise.resolve()
+//on delete eventevents
+exports.userDeleted = functions.auth().onDeleted()((user) => {
+  console.log(`${user.email} is deleted...`);
+  return Promise.resolve();
 });
 
 //events on firestore collections event when document is created
-exports.fruitsDeleted = functions.firestore.document('fruits/{documentId}').onCreate((snapshot, context) =>{
-  console.log(snapshot.data() ,'deleted');
-  return Promise.resolve()
+exports.fruitsAdded = functions.firestore
+  .document("fruits/{documentId}")
+  .onCreate((snapshot, context) => {
+    console.log(snapshot.data());
+    return Promise.resolve();
   });
- 
-  //events on firestore collections event when document is created
-exports.fruitsUpdated = functions.firestore.document('fruits/{documentId}').onCreate((snapshot, context) =>{
-  console.log('Bfore', snapshot.before.data())
-  console.log('After', snapshot.after.data());
-  return Promise.resolve()
+
+//events on firestore collections event when document is created
+exports.fruitsDeleted = functions.firestore
+  .document("fruits/{documentId}")
+  .onCreate((snapshot, context) => {
+    console.log(snapshot.data(), "deleted");
+    return Promise.resolve();
+  });
+
+//events on firestore collections event when document is created
+exports.fruitsUpdated = functions.firestore
+  .document("fruits/{documentId}")
+  .onCreate((snapshot, context) => {
+    console.log("Bfore", snapshot.before.data());
+    console.log("After", snapshot.after.data());
+    return Promise.resolve();
   });
 
 //shduled functions
-exports.scheduledFunctions = functions.pubsub.schedule('*****').onRun(context => {
-  console.log('Ima runnning every minute')
-  return null;
-})
+exports.scheduledFunctions = functions.pubsub
+  .schedule("*****")
+  .onRun((context) => {
+    console.log("Ima runnning every minute");
+    return null;
+  });
